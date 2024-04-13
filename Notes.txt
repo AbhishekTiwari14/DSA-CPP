@@ -1,8 +1,9 @@
 STL:
 (1) Pair: pair<int,string> p = {2, "ab"} ; 
 -> p.first => 2 & p.second => "ab" here
+
 (2) Vector: vector<int> v = {1,"A",213}
--> max size: (1) Global: 10^7  (2) Local: 10^5
+-> max size: (1) Global: 10^7 (10^8 for boolean)  (2) Local(ie, inside main): 10^6 (10^7 for boolean)
 -> vector<vector<int>> v1 => v1.size() = n(rows) & v1[0].size() = n(cols)
 -> Iterating a vector: for(int val : vector){}
 -> 'auto' keyword determines the DT by itself
@@ -11,6 +12,7 @@ STL:
 -> int sum = accumulate(v.begin(), v.end(), 0);
 -> count(v.begin(), v.end(), 4); returns count/freq. of 4 in v;
 -> reverse(v.begin(), v.end()); 
+
 (3) Map: map<int, string> m;    m.insert({4, "ab"});    m[2] = "fad"; 
 -> key:value "pairs" are stored 
 -> keys must be unique
@@ -20,22 +22,36 @@ STL:
     -data is sorted wrt keys
     -TC: Insert/Access/Find/erase : O(logN); 
 ->Unordered Map: unordered_map<int, string> m;
-    -TC: Insert/Acess: O(1) (avg. bcoz collisions => TC Increases);
+    -TC: Insert/Acess: O(1) (avg., bcoz collisions => rare worst case => TC: O(n));
+
 (4) Set: set<string> s;
 -> stores unique values
 -> same as map but without pairs
 -> ordered set-> sorts data; unordered set -> data is unsorted
+
 (5) Stack & Queue: stack<int> s;
 -> Stack Methods: push(), pop(), top(), empty(),   
 -> Queue Methods: push(), pop(), front(), empty(),   
+
 (6)sort(v.begin(), v.end());  or in array: sort(arr, arr+n)
 -> sorting in decending order: sort(v.begin(),v.end(), comparatorFxn());
     bool comparatorFxn(int a, int b){
         return a>b;
     }
+-> TC: O(NlogN)
+
 (7) Lamda Fxn.(Shorter way of writing fxn.): [](parameters){  }
 -> Ex. sort(v.begin(), v.end(), [](int a, int b){ return a> b}); 
 -> all_of(), any_of(), none_of();
 
 .....................................................................
-SORTING: 
+BASIC MATHS:
+-> n%10 => last digit obtained, n/10 => last digit removed
+-> Check Prime/ Get All Divisors: In TC: O(sqrt(N)) =>
+    for(i=0 to sqrt(N)) check if N%i==0 & also check if N%(N/i) == 0;
+-> GCD/HCF: Eucledian Algo: GCD(a,b) = GCD(a-b,b) (a>b). So, GCD(a,b) = GCD(a%b,b) (a>b) do untill it becomes GCD(0, ans) or GCD(ans, 0); TC: O(log(min(a,b))) 
+-> Hashing/Freq. Count: Freq. array-> ka index = val & array ka val = freq./count of corresponding no. in original array/vector  
+-> String Char Hashing: arr[26]; ASCII:  0 = 48, A = 65, a = 97. So, typecast: ie, int x = 'a' => x = 97 
+-> map is also used for hashing where key = value & map[key] = freq of value  
+
+...................................................................
