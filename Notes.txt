@@ -1,1 +1,41 @@
 STL:
+(1) Pair: pair<int,string> p = {2, "ab"} ; 
+-> p.first => 2 & p.second => "ab" here
+(2) Vector: vector<int> v = {1,"A",213}
+-> max size: (1) Global: 10^7  (2) Local: 10^5
+-> vector<vector<int>> v1 => v1.size() = n(rows) & v1[0].size() = n(cols)
+-> Iterating a vector: for(int val : vector){}
+-> 'auto' keyword determines the DT by itself
+-> int min = *min_element(v.begin(), v.end());
+-> int max = *max_element(v.begin(), v.end());
+-> int sum = accumulate(v.begin(), v.end(), 0);
+-> count(v.begin(), v.end(), 4); returns count/freq. of 4 in v;
+-> reverse(v.begin(), v.end()); 
+(3) Map: map<int, string> m;    m.insert({4, "ab"});    m[2] = "fad"; 
+-> key:value "pairs" are stored 
+-> keys must be unique
+-> Methods: (i) find(key): auto it = m.find(key);    (*it).first = key & (*it).second = corresponding value;  if key does'nt exist, m.find() = m.end();
+(ii) erase(key or iterator): deletes corresponding key:value pair from map;
+-> Ordered Map:
+    -data is sorted wrt keys
+    -TC: Insert/Access/Find/erase : O(logN); 
+->Unordered Map: unordered_map<int, string> m;
+    -TC: Insert/Acess: O(1) (avg. bcoz collisions => TC Increases);
+(4) Set: set<string> s;
+-> stores unique values
+-> same as map but without pairs
+-> ordered set-> sorts data; unordered set -> data is unsorted
+(5) Stack & Queue: stack<int> s;
+-> Stack Methods: push(), pop(), top(), empty(),   
+-> Queue Methods: push(), pop(), front(), empty(),   
+(6)sort(v.begin(), v.end());  or in array: sort(arr, arr+n)
+-> sorting in decending order: sort(v.begin(),v.end(), comparatorFxn());
+    bool comparatorFxn(int a, int b){
+        return a>b;
+    }
+(7) Lamda Fxn.(Shorter way of writing fxn.): [](parameters){  }
+-> Ex. sort(v.begin(), v.end(), [](int a, int b){ return a> b}); 
+-> all_of(), any_of(), none_of();
+
+.....................................................................
+SORTING: 
