@@ -55,3 +55,14 @@ BASIC MATHS:
 -> map is also used for hashing where key = value & map[key] = freq of value  
 
 ...................................................................
+SORTING: 
+(1) Bubble Sort: Swap Padosi; Outer Loop: i=0 to n-1; Inner Loop: j=0 to n-i-1 & swap(arr[j], arr[j+1])
+-> TC: O(N^2) but best case TC: O(N) when array is already sorted
+(2) Selection Sort: Brings Smallest Element at its sorted position after each inner loop traversal; Outer Loop: i=0 to n-1; Inner Loop: j=i+1 to n & swap(arr[i], arr[j]);  TC: O(N^2)
+(3) Insertion Sort: Moving L->R, make left part of each element sorted; Outer Loop: i=i to n; Inner Loop: j= i to >=0 & swap(arr[j], arr[j-1])    
+
+(4) Merge Sort: Divide the array(untill only element in each subarray) & then join the 2 subarrays in sorted manner while retracing the path. TC: O(NlogN), SC: O(N);
+-> mergeSort(arr, 0 , m); mergeSort(arr, m+1, e); mergeTwoArraysInSortedManner(arr, s, m, e);
+(5) Quick Sort: TC: O(N*logN), SC: O(N). Find index of Pivot element(take first element of array as PE) & put pivot element at its correct sorted index, ie, Pivot index and make sure that all elements to the left of PE are less than PE & to the right are >PE. TC = O(nlogn) but rare case: O(n^2) for already sorted array
+
+....................................................................
