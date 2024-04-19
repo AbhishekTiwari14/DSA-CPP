@@ -12,6 +12,7 @@ STL:
 -> int sum = accumulate(v.begin(), v.end(), 0);
 -> count(v.begin(), v.end(), 4); returns count/freq. of 4 in v;
 -> reverse(v.begin(), v.end()); 
+-> v.back() = v[n-1];
 
 (3) Map: map<int, string> m;    m.insert({4, "ab"});    m[2] = "fad"; 
 -> key:value "pairs" are stored 
@@ -66,3 +67,43 @@ SORTING:
 (5) Quick Sort: TC: O(N*logN), SC: O(N). Find index of Pivot element(take first element of array as PE) & put pivot element at its correct sorted index, ie, Pivot index and make sure that all elements to the left of PE are less than PE & to the right are >PE. TC = O(nlogn) but rare case: O(n^2) for already sorted array
 
 ....................................................................
+ARRAY:
+-> Rotate array of size n by k places: => reverse(0 to n-k-1); reverse(n-k, n-1); reverse(0, n-1);
+-> PREFIX SUM:  (Q) find longest subarray with sum = k. (Sol) prefix sum hashmap = map where k = current Running Sum & value = curr Index.
+
+-> DNFA (Dutch National Flag Algo)[3 Pointers]: (Q) Sort array containing only 0s, 1s & 2s. (Sol) Take 3 pointers l,m&r (initial vals = 0,0,n-1); & keep moving m untill it reaches r & while doing so, if ar[m] = 0, swap(ar[m++],ar[l++]); else if ar[m] = 1 => m++ and else swap(ar[m],ar[r--]). Note: we do m++ for ar[m] = 0 but not for ar[m] = 2 bcoz we know that left part of m is sorted & not the right part. TC: O(N)
+
+-> MVA(Moore's Voting Algo): (Q) Find the majority element(ie, element whose count >n/2). (Sol) Take 2 vars. element(intially = ar[0]) & count(initially = 1(ie, count of element)) & while traversing the array, if curr == element => count++, else count--; and if count<0 => update element = curr & count = 1; Finally element = ans; TC: O(N)
+-> MVA extended: Take 2 vars. (Q) Find the majority element(ie, element whose count >n/2). (Sol) Take 2 vars. count1 & count2 and 2 more vars. el1 & el2(initially = INT_MIN), then do same as above by using count1 for el1 & count2 for el2. Now, while again traversing the array, count the freq. of el1 & el2 & check if there freqs. are >n/3.
+
+-> Kadane's Algo: (Q) find the maximum sum subarray. (Sol) Take 2 vars. sum(IV = 0) & maxi(IV = INT_MIN) & while traversing the array, do sum+=arr[i], maxi = max(maxi,sum) & if sum<0 => sum = 0. To find starting(s) & ending(e) index of the required subarray, int s=0,e=0 & while traversing -> check first if sum=0 => s=i (s=largest index for which sum=0) & check if sum>maxi => e=i. TC: O(N)
+
+-> Find Next Purmuatation: [1,2,3] => next permutation = [1,3,2] & further =>[1,3,2]-> [2,1,3] -> [2,3,1] -> [3,1,2] -> [3,2,1] & then back to [1,2,3]. (Sol) S-1: Find index of dip(ind) moving from R->L; S-1(b) If no dip element(ie, given array is sorted in descending order), then reverse of array is ans. S-2: Moving from R->L, swap index no. with the 1st no. you find greater than it. S-3: Reverse the part on the right of dip index. TC: O(N)
+
+2-D ARRAY: arr[i][j] => i = row no., j = column no. ;  int r = matrix.size() gives no. of rows &  int c = matrix[0].size() gives no. of cols
+//When passing a 2D array as a parameter to a function in C++, you need to specify the column size because the array is actually represented as a contiguous block of memory. The column size is necessary to correctly access the elements of the array using appropriate indexing. ex. ar[][] or ar[3][] cannot be passed as fxn. parameter but arr[][3] can be passed. 
+
+-> Set Matrix Zeroes: (Q) Given a 2D Matrix, if an element is 0, set its entire row and column to 0s. (Sol) In first traversal of matrix, if matrix[i][j] = 0, then mark matrix[0][j] = 0 & matrix[i][0] = 0. 
+Then traverse 1st row & if matrix[0][j] = 0, then mark all elements in jth col = 0. Then traverse 1st col & if matrix[i][0] = 0, then mark all elements in ith row = 0. create var. col0 to track 1st col separately bcoz matrix[0][0] can only be used to track either 1st row or 1st col. TC: O(r*c)
+
+-> Rotate 2D Matrix: (Q1) Rotate Right(CW) 90 Degree. (Sol) S-1: Transpose the matrix(swap([i][j], [j][i])), S-2: Reverse each row. (Q2) Rotate Left(ACW) 90 Degree. (Sol) 
+
+-> Pascal's Triangle: 1st element of any row = 1 & 'i'th element in the 'n'th row = (i-1)th element*(n-i)/i
+
+-> 3 Sum: (Q) Find all triplets which sum up to S. (Sol) S-1: Sort the array, S-2: take 3 pointers i,j&k. OL: i=0 to n-2; take j=i+1, k=n-1; calc sum = ar[i] + ar[j] + ar[k], if(sum===S) ans.push, j++, k-- (Note: whenever moving i,j or k make sure the pointer moves to a next value which is different than current value (ie,i++ -> check if(ar[i+1] === ar[i]))); else if(sum<S) j++,, else k--; TC: O(N^2 + NlogN)
+-> 4 Sum: Same as above, sort array, take 3 pointers i,j,k&l; OL: i=0 to n-3, IL: j=i+1 to n-2, within inner loop: k=j+1, l=n-1 & do same. TC: O(N^3 + NlogN)
+-> N Sum: Backtracking
+
+-> Count Inversions: (Q) Count no. of inversions (an inversion is when ar[i] > ar[j] & i<j). (Sol) Same code as Merge Sort & calculate no. of inversions at the time of merging, ie, if(ar[left] > ar[right] { count+= m-left+1;}). TC: O(NlogN) 
+
+-> Max Product Subarray: (Q) find a subarray that has the largest product, and return the product. (Sol) 4 cases possible: (1)array has all +ve nos. => ans = product of all nos.; (2)array has even no. of -ve nos. & no zeroes => ans = product of all nos. (3) array has odd no. of -ve nos. & no zeroes => ans = either product of prefix(i=0 to i=x-1 where x = index of last -ve int in array) or product of suffix(i=n-1 to i= x+1 where x = index of first -ve int in arr); (4) array has zero(es) => ans = max(product of all subarrays which do no have zero). So, take pre=1,suff=1 & ans=INT_MIN; while traversing: pre*=arr[i], suff*=arr[n-1-i] & ans = max(ans, max(pre, suff)) &  if pre or suff ==0 make it = 1 again.
+.....................................................................
+BINARY SEARCH:
+
+
+
+XOR: 
+Arrays: 
+-> find element that appears only ones in an array which has all elements twice other than one.
+-> find all subarrays whose elements XOR to k;
+-> array[n] contains nos. from 1 to n. There is 1 repeating no. & 1 missing no. Find them.

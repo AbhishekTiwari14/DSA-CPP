@@ -1,14 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void mergeSort(int arr[], int s, int e){
-    int m = s + ((e-s)/2);
-    if(e<=s) return;
-    mergeSort(arr, 0 , m);
-    mergeSort(arr, m+1, e);
-    mergeTwoArraysInSortedManner(arr, s, m, e);
-}
-
 void mergeTwoArraysInSortedManner(int arr[], int s, int m, int e){
     int left = s; //starting index of left subarray
     int right = m+1; //starting index of right subarray
@@ -23,6 +15,16 @@ void mergeTwoArraysInSortedManner(int arr[], int s, int m, int e){
         arr[i] = temp[i - s];
     }
 }
+
+void mergeSort(int arr[], int s, int e){
+    int m = s + ((e-s)/2);
+    if(e<=s) return;
+    mergeSort(arr, 0 , m);
+    mergeSort(arr, m+1, e);
+    mergeTwoArraysInSortedManner(arr, s, m, e);
+}
+
+
 
 int main(){
 return 0;
