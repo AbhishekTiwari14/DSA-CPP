@@ -97,8 +97,49 @@ Then traverse 1st row & if matrix[0][j] = 0, then mark all elements in jth col =
 -> Count Inversions: (Q) Count no. of inversions (an inversion is when ar[i] > ar[j] & i<j). (Sol) Same code as Merge Sort & calculate no. of inversions at the time of merging, ie, if(ar[left] > ar[right] { count+= m-left+1;}). TC: O(NlogN) 
 
 -> Max Product Subarray: (Q) find a subarray that has the largest product, and return the product. (Sol) 4 cases possible: (1)array has all +ve nos. => ans = product of all nos.; (2)array has even no. of -ve nos. & no zeroes => ans = product of all nos. (3) array has odd no. of -ve nos. & no zeroes => ans = either product of prefix(i=0 to i=x-1 where x = index of last -ve int in array) or product of suffix(i=n-1 to i= x+1 where x = index of first -ve int in arr); (4) array has zero(es) => ans = max(product of all subarrays which do no have zero). So, take pre=1,suff=1 & ans=INT_MIN; while traversing: pre*=arr[i], suff*=arr[n-1-i] & ans = max(ans, max(pre, suff)) &  if pre or suff ==0 make it = 1 again.
+
 .....................................................................
 BINARY SEARCH:
+-> Used on sorted array. s = 0,e = n-1 & m = s+ ((e-s)/2); if(target>ar[m]) => s=m+1, else e=m-1; TC: O(log(e-s))
+-> lower bound index: = smallest index for which arr[i] >= target. If target > ar[n-1], lbi = n.  In-built method: lower_bound(v.begin(), v.end(), target) returns iterator pointing to the index 'i'. So,  lower_bound(v.begin(), v.end(), target) - v.begin() = i;
+-> upper bound index: = smallest index for which arr[i] > target. lbi = n. In-built method: upper_bound(v.begin(), v.end(), target) returns iterator pointing to the index 'i'. So,  upper_bound(v.begin(), v.end(), target) - v.begin() = i;
+-> upper_bound(v.begin(),v.end(),target) - lower_bound(v.begin(),v.end(),target) = no. of occurences of target in sorted array v.
+-> Rotated Sorted Array: pivot index = i => ar[i] > ar[i+1]; ar = [5,6,1,2,3,4] => i=1;  
+
+-> Single Element in a Sorted Array: (Q) Given a sorted array where all elements occur twice except one, find the unique value. (Sol) Sorted array will be of type [e1,o1,e2,o2,unique,o3,e3,04,e4], ie, on left side of the unique value(ans), the duplicate nos. will be indexed as (even, odd) while on right side of unique value, duplicate nos. will be indexed as (odd, even). So, we can eliminate one side on each traversal. Separately write edge cases when nums[0] or nums[n-1] is ans so that you don't go out of bounds.
+
+-> BS on answers: generally applicable when we have to find some kind of min/max or min of maximums or max of minimums
+
+-> Koko Eating Bananas: (Q) Given an array: piles where piles[i] = no. of bananas in ith pile. Also given is 'h' = max. time(hours) koko can take to finish all bananas. Find min. speed of eating bananas (bananas/hour) with which koko can finish all bananas. Note: In each hour, koko can eat bananas from only 1 pile. (Sol) s=1, e=maxVal(piles array). m = speed(bananas/hour). If at speed of m, time taken by koko < h => ans = m & e=m-1; else s=m+1; TC: O(N * log(max val in piles array))
+
+-> Bouquets: (Q) given an array: bloomday where bloomday[i] => ith flower booms on ith day. Also given m & k. Find min. no. of days required to make m bouquets each of size k. Note: a bouquet must have all its k flowers as adjacent flowers. (Sol) s=minVal(bloomday array), e = maxVal(bloomday array); mid => day no. = mid. if size of blooomday < m*k => return -1; If on the mid'th day, we can make m flowers having k adjacent flowers each, then ans = mid, e = mid-1; else s = mid+1; TC: O(N * log((max-min) val in piles array))
+
+-> Aggresive cows: (Q)given an array position where position[i] = position of ith shed, where cow sheds are there in a straight line. Also given is k = no. of cows. Place the cows in sheds such that the min. distance b/w any 2 cows is max. & return this min. distance (Sol) sort the array. s=1, e = maxVal(position array); check for m = min. distance b/w 2 cows, can we place all the cows in sheds. If yes, ans = m, s = m+1; else e = m-1;  
+
+-> New Gas Stations: (Q) given arr where arr[i] = position of ith gas station in +x-axis. Also given is k where k = no. of new gas stations. You have to place k new gas stations in +x-axis(you can place them at non-integer positions as well), so as to minimize the max distancce b/w two gas stations. (Sol) s=0, e = max(arr[i]-arr[i-1])(ie, max of dist. b/w adjacent stations); while(abs(e-s) > 1e-6), double m = (s+e)/2.0; check the no. of new stations required so that max dist. b/2 two gas stations < m; if required stations <= k => e=m; else s=m -> finally ans = e; TC: O(N * log(e))
+
+-> Median of Two Sorted Arrays: (Q) given two sorted arrays: arr1 of size n1 and arr2 of size n2 (n1>n2), find their median. (Sol) Assume the merged sorted array divided from middle(ie, (n1+n2+1)/2), then no. of elements in the left part of division from arr2 can be b/w 0 to n2; so s =0, e = n2; let l1 = last element of arr1 in left part of division, l2 = first element of arr1 in left part of division, r1 = last element of arr2 in left part & r2 = first el of arr2 in right part. Then, for mid  no. of elements of arr2 in left part, if l1<r2 & l2<r1 => ans = max(l1,l2) if n1+n2 = odd & ans = (max(l1,l2) +  min(r1,r2))/2.0 if m1+m2 = even; else if l1>r2: e=mid-1; else if l2>r1: s=mid+1; TC: O(log(min(n1,n2)))
+
+-> kth element: (Q) given two sorted arrays: arr1 of size n1 and arr2 of size n2 (n1>n2), find the element at kth index of the merged sorted array. (Sol) same as above but here division not from middle but from k, ie, left part will have k elements -> ans = max(l1,l2);
+
+-> Row with max 1s: (Q) given a 2D matrix of size mxn, which contains only 0s & 1s and each row of it is sorted, return the index of the row with max 1s. if >1 row with same no. of 1s, return the lower index. (Sol) Since, each row is sorted, no. of 1s in ith row = mat.end() - lower_bound(mat.begin(), mat.end(), 1); TC: O(nlogm)
+
+-> Search in a Matrix: (Q) given a r*c matrix where each row is sorted & 1st element in next row > last element in prev. row. Search for a 'target' element. (Sol) if we see it as a hypothetical flattened 1D sorted array => s=0, e = r*c - 1; 1D -> 2D => row no. = mid/c, col no. = mid%c; if mat[row no.][col no.] > target => e=m-1, else if(<target) => s=m+1 else => =target => return true; TC: O(log(r*c))  
+
+-> Search in a Matrix-2: (Q) given a r*c matrix where each row is sorted as well as each column is sorted. Search for a 'target' element. (Sol) if we move; [i][0] -> [i][c-1] -> [r-1][c-1], then this part is sorted, ie, if we move L->R in any row & then continue moving down the column of the last element of that row, then we can see that this part is sorted; so on standing at last element of a row, we can either eliminate its row(ie, if target>curr) or its col(ie, if target<curr). so i=0, j=c-1; if(target> mat[i][j]) i++, else if(target<mat[i][j]) j--;  TC: O(r+c) 
+
+-> Peak Element: (Q) given a r*c matrix, find any peak element (peak element = element which is greater than its top,bottom,left,right neighbours). (Sol) s=0, e=c-1 => m = a column, find maxVal in that col, if maxVal<Its left neighbor => e=m-1, else if maxVal<Its right neighbor => s=m+1 ; else maxVal = peak element. TC: O(r*log(c))  
+
+-> Matrix Median: (Q) given a r*c matrix with all its rows sorted. Also, r & c are odd. Find the median. (Sol) for the hypothehtical flatenned sorted 1D array, median = arr[r*c/2]; => there will be (r*c/2) elements on the left of median(ie, r*c/2 elements which are <= median). So, take s = 1 & e = 1e9(bcoz contraint given in Q. is that 1<=mat[i][j]<= 1e9); for each value of mid, calculate total no. of elements in matrix <= mid by applying upper_bound to each row. if(countSmaller<= (m*n)/2) => s=mid+1; else e=mid-1 and finally ans = s; TC: O(r*logc)
+
+............................................................
+STRING: 
+
+
+
+
+
+
 
 
 
